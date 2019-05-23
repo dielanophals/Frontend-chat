@@ -110,6 +110,8 @@ document.querySelector(".imdchat").addEventListener("click", e => {
         document.querySelector('.chat--form').classList.remove('hidden');
     } else if (e.target.classList.contains("right")) {
       $(e.target).next(".edit").css({"display": "block"});
+    }else if(e.target.classList.contains("delete")){
+      
     }else{
       $(".edit").css({"display": "none"});
     }
@@ -117,18 +119,12 @@ document.querySelector(".imdchat").addEventListener("click", e => {
 
 //append a message to the dom
 let appendMessage = (json) => {
-  if(message.sender === localStorage.getItem('id')){
-    var messages = `
-      <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p>X</p><p>E</p></div></div>
-    `;
-    }else{
-      var messages = `
-      <div class="wrapper left"><span class="message" data-id="${message._id}">${message.text}</span></div>
-    `;
-    }
-  input.value = "";
-  input.focus();
-  document.querySelector(".messages").innerHTML += messages;
+  let messages = `
+<div class="wrapper left"><span class="message" data-id="${json.data.messages._id}">${json.data.messages.text}</span></div>
+`;
+input.value = "";
+input.focus();
+document.querySelector(".messages").innerHTML += messages;
 }
 //add a message on enter
 let input = document.querySelector("#message");
