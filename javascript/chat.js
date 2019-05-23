@@ -33,7 +33,7 @@ fetch(url + "/api/v1/users", {
   json.data.users.forEach(user => {
     if(user.username !== localStorage.getItem('email')){
       var users = `
-        <div class="user" data-id="${user._id}">${user.username}</div>
+        <div class="user" data-id="${user._id}">${user.firstname} ${user.lastname}</div>
       `;
       document.querySelector(".persons").innerHTML += users;    
     }else{
