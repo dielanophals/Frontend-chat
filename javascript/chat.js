@@ -114,7 +114,7 @@ document.querySelector(".imdchat").addEventListener("click", e => {
 //append a message to the dom
 let appendMessage = (json) => {
   let messages = `
-<div class="wrapper"><span class="message" data-id="${json.data.messages._id}">${json.data.messages.text}</span></div>
+<div class="wrapper left"><span class="message" data-id="${json.data.messages._id}">${json.data.messages.text}</span></div>
 `;
 input.value = "";
 input.focus();
