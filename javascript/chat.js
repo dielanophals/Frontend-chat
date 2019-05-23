@@ -62,8 +62,8 @@ document.querySelector(".imdchat").addEventListener("click", e => {
       json.data.messages.forEach(message => {
         if(message.sender === localStorage.getItem('id')){
             var messages = `
-            <div class="wrapper"><span class="message" data-id="${message._id}">${message.text}</span></div>
-          `;
+              <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p>X</p><p>E</p></div></div>
+            `;
         }else{
           var messages = `
           <div class="wrapper left"><span class="message" data-id="${message._id}">${message.text}</span></div>
@@ -91,16 +91,16 @@ document.querySelector(".imdchat").addEventListener("click", e => {
         }).then(json => {
           document.querySelector(".messages").innerHTML = "";
           json.data.messages.forEach(message => {
-          if(message.sender === receiver){
-                var messages = `
-                <div class="wrapper left"><span class="message" data-id="${message._id}">${message.text}</span></div>
+          if(message.sender === localStorage.getItem('id')){
+              var messages = `
+                <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p>X</p><p>E</p></div></div>
               `;
-              }else{
-                var messages = `
-                <div class="wrapper"><span class="message" data-id="${message._id}">${message.text}</span></div>
-              `;
-              }
-              document.querySelector(".messages").innerHTML += messages;    
+          }else{
+            var messages = `
+            <div class="wrapper left"><span class="message" data-id="${message._id}">${message.text}</span></div>
+          `;
+          }
+          document.querySelector(".messages").innerHTML += messages;    
           });
           console.log(json);
         }).catch(err => {
@@ -108,17 +108,27 @@ document.querySelector(".imdchat").addEventListener("click", e => {
           window.location.href = "login.html";
       })
         document.querySelector('.chat--form').classList.remove('hidden');
+    } else if (e.target.classList.contains("right")) {
+      $(e.target).next(".edit").css({"display": "block"});
+    }else{
+      $(".edit").css({"display": "none"});
     }
 });
 
 //append a message to the dom
 let appendMessage = (json) => {
-  let messages = `
-<div class="wrapper left"><span class="message" data-id="${json.data.messages._id}">${json.data.messages.text}</span></div>
-`;
-input.value = "";
-input.focus();
-document.querySelector(".messages").innerHTML += messages;
+  if(message.sender === localStorage.getItem('id')){
+    var messages = `
+      <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p>X</p><p>E</p></div></div>
+    `;
+    }else{
+      var messages = `
+      <div class="wrapper left"><span class="message" data-id="${message._id}">${message.text}</span></div>
+    `;
+    }
+  input.value = "";
+  input.focus();
+  document.querySelector(".messages").innerHTML += messages;
 }
 //add a message on enter
 let input = document.querySelector("#message");

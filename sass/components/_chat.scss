@@ -40,6 +40,17 @@
                 width:100%;
                 display: flex;
                 justify-content: flex-end;
+                position: relative;
+
+                .edit{
+                    position: absolute;
+                    display: none;
+                    right: 10px;
+                    top: 6px;
+                    background: #5584FD;
+                    color: white;
+                    padding: 5px;
+                }
             }
 
             .message{

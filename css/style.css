@@ -118,6 +118,16 @@ input, textarea {
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  position: relative;
+}
+.imdchat .chat .messages .wrapper .edit {
+  position: absolute;
+  display: none;
+  right: 10px;
+  top: 6px;
+  background: #5584FD;
+  color: white;
+  padding: 5px;
 }
 .imdchat .chat .messages .message {
   border-radius: 10px;
