@@ -1,4 +1,4 @@
-const url = "http://localhost:3000";
+const url = "https://chatbot-dielanophals.herokuapp.com";
 
 // PRIMUS LIVE
 primus = Primus.connect(url, {
