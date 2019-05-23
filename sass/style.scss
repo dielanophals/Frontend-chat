@@ -1,0 +1,32 @@
+@import 'variables';
+@import 'components/reset';
+@import 'components/form';
+@import 'components/chat';
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background: $lightgrey;
+    font-family: $font;
+    color: $grey;
+}
+
+h2{
+    font-size:26px;
+    font-weight: 700;
+}
+
+.hidden{
+    display: none !important;
+}
+
+.btn{
+    background: $blue;
+    border:none;
+    padding: 10px 20px;
+    border-radius: $radius;
+    color:white;
+    font-size: 16px;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <section class="imdchat">
+        <div class="persons">
+            <h2>All messages</h2>
+            <div class="user group" data-id="group">Group chat</div>
+        </div>
+        <div class="chat">
+            <h2 class="title__user"></h2>
+            <div class="messages"></div>
+            <div class="chat--form hidden">
+                <input name="message" id="message" placeholder="Type a message...">
+                <button class="btn">Send</button>
+            </div>
+        </div>
+    </section>
+    <script src="https://chatbot-dielanophals.herokuapp.com/primus/primus.js"></script>
+<script type="text/javascript" src="javascript/chat.js"></script>
+</body>
+</html>
