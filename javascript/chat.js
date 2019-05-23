@@ -1,4 +1,4 @@
-const url = "https://chatbot-dielanophals.herokuapp.com";
+const url = "http://localhost:3000";
 
 // PRIMUS LIVE
 primus = Primus.connect(url, {
@@ -113,7 +113,7 @@ document.querySelector(".imdchat").addEventListener("click", e => {
     }else if(e.target.classList.contains("delete")){
       let mes = e.target.getAttribute("data-mes");
 
-      fetch('http://localhost:3000' + '/api/v1/messages/' + mes, {
+      fetch(url + '/api/v1/messages/' + mes, {
           method: "delete",
           'headers': {
               'Content-Type': 'application/json',
