@@ -13,6 +13,6 @@ function sass2css(done){
     done();
 }
 
-watch('./src/sass/**/*.scss', sass2css)
+watch('./sass/**/*.scss', sass2css)
 
 module.exports.default = parallel(sass2css);
