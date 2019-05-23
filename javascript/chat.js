@@ -62,7 +62,7 @@ document.querySelector(".imdchat").addEventListener("click", e => {
       json.data.messages.forEach(message => {
         if(message.sender === localStorage.getItem('id')){
             var messages = `
-              <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p>X</p><p>E</p></div></div>
+              <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p data-mes="${message._id}" class="delete">X</p><p>E</p></div></div>
             `;
         }else{
           var messages = `
@@ -93,7 +93,7 @@ document.querySelector(".imdchat").addEventListener("click", e => {
           json.data.messages.forEach(message => {
           if(message.sender === localStorage.getItem('id')){
             var messages = `
-              <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p>X</p><p>E</p></div></div>
+              <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p data-mes="${message._id}" class="delete">X</p><p>E</p></div></div>
             `;
           }else{
             var messages = `
@@ -111,7 +111,28 @@ document.querySelector(".imdchat").addEventListener("click", e => {
     } else if (e.target.classList.contains("right")) {
       $(e.target).next(".edit").css({"display": "block"});
     }else if(e.target.classList.contains("delete")){
-      
+      let mes = e.target.getAttribute("data-mes");
+
+      fetch('http://localhost:3000' + '/api/v1/messages/' + mes, {
+          method: "delete",
+          'headers': {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+          },
+          body: JSON.stringify({
+              "messageId": mes
+          })
+      })
+      .then(result => {
+          return result.json();
+      }).then(json => {
+          if (json.status === "success") {
+              alert("gone");
+          }
+          console.log(json);
+      }).catch(err => {
+          console.log(err)
+      })
     }else{
       $(".edit").css({"display": "none"});
     }
@@ -121,7 +142,7 @@ document.querySelector(".imdchat").addEventListener("click", e => {
 let appendMessage = (json) => {
   if(json.data.messages.sender === localStorage.getItem('id')){
     var messages = `
-      <div class="wrapper"><span class="message right" data-id="${json.data.messages._id}">${json.data.messages.text}</span><div class="edit"><p>X</p><p>E</p></div></div>
+      <div class="wrapper"><span class="message right" data-id="${json.data.messages._id}">${json.data.messages.text}</span><div class="edit"><p data-mes="${message._id}" class="delete">X</p><p>E</p></div></div>
     `;
   }else{
     var messages = `
