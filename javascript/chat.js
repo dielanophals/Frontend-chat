@@ -92,13 +92,13 @@ document.querySelector(".imdchat").addEventListener("click", e => {
           document.querySelector(".messages").innerHTML = "";
           json.data.messages.forEach(message => {
           if(message.sender === localStorage.getItem('id')){
-              var messages = `
-                <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p>X</p><p>E</p></div></div>
-              `;
+            var messages = `
+              <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p>X</p><p>E</p></div></div>
+            `;
           }else{
             var messages = `
-            <div class="wrapper left"><span class="message" data-id="${message._id}">${message.text}</span></div>
-          `;
+              <div class="wrapper left"><span class="message" data-id="${message._id}">${message.text}</span></div>
+            `;
           }
           document.querySelector(".messages").innerHTML += messages;    
           });
@@ -119,9 +119,15 @@ document.querySelector(".imdchat").addEventListener("click", e => {
 
 //append a message to the dom
 let appendMessage = (json) => {
-  let messages = `
-<div class="wrapper"><span class="message right" data-id="${json.data.messages._id}">${json.data.messages.text}</span></div>
-`;
+  if(json.data.messages.sender === localStorage.getItem('id')){
+    var messages = `
+      <div class="wrapper"><span class="message right" data-id="${json.data.messages._id}">${json.data.messages.text}</span><div class="edit"><p>X</p><p>E</p></div></div>
+    `;
+  }else{
+    var messages = `
+    <div class="wrapper left"><span class="message" data-id="${json.data.messages._id}">${json.data.messages.text}</span></div>
+  `;
+  }
 input.value = "";
 input.focus();
 document.querySelector(".messages").innerHTML += messages;
