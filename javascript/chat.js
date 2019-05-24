@@ -199,6 +199,5 @@ let appendMessage = (json) => {
 
 //append a message to the dom
 let removeMessage = (data) => {
-  alert(data)
   $('[data-id="'+ data +'"]').css('display', 'none');
 }
