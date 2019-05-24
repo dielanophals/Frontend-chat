@@ -15,6 +15,8 @@ primus = Primus.connect(url, {
 primus.on('data', (json)=>{
   if(json.action === "addMessage"){
     appendMessage(json.data);
+  }else if(json.action === "removeMessage"){
+    removeMessage(json.data);
   }
 })
 
@@ -62,7 +64,7 @@ document.querySelector(".imdchat").addEventListener("click", e => {
       json.data.messages.forEach(message => {
         if(message.sender === localStorage.getItem('id')){
             var messages = `
-              <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p data-mes="${message._id}" class="delete">X</p><p>E</p></div></div>
+              <div class="wrapper" data-id="${message._id}"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p data-mes="${message._id}" class="delete">X</p><p>E</p></div></div>
             `;
         }else{
           var messages = `
@@ -126,10 +128,14 @@ document.querySelector(".imdchat").addEventListener("click", e => {
       .then(result => {
           return result.json();
       }).then(json => {
-          if (json.status === "success") {
-              alert("gone");
-          }
           console.log(json);
+
+          $(e.target).parent().css('display', 'none');
+
+          primus.write({
+            "action": "removeMessage",
+            "data": mes
+          });
       }).catch(err => {
           console.log(err)
       })
@@ -138,21 +144,6 @@ document.querySelector(".imdchat").addEventListener("click", e => {
     }
 });
 
-//append a message to the dom
-let appendMessage = (json) => {
-  if(json.data.messages.sender === localStorage.getItem('id')){
-    var messages = `
-      <div class="wrapper"><span class="message right" data-id="${json.data.messages._id}">${json.data.messages.text}</span><div class="edit"><p data-mes="${message._id}" class="delete">X</p><p>E</p></div></div>
-    `;
-  }else{
-    var messages = `
-    <div class="wrapper left"><span class="message" data-id="${json.data.messages._id}">${json.data.messages.text}</span></div>
-  `;
-  }
-input.value = "";
-input.focus();
-document.querySelector(".messages").innerHTML += messages;
-}
 //add a message on enter
 let input = document.querySelector("#message");
 input.addEventListener("keyup", e => {
@@ -189,3 +180,25 @@ input.addEventListener("keyup", e => {
   }
   e.preventDefault();
 })
+
+//append a message to the dom
+let appendMessage = (json) => {
+  if(json.data.messages.sender === localStorage.getItem('id')){
+    var messages = `
+      <div class="wrapper"><span class="message right" data-id="${json.data.messages._id}">${json.data.messages.text}</span><div class="edit"><p data-mes="${json.data.messages._id}" class="delete">X</p><p>E</p></div></div>
+    `;
+  }else{
+    var messages = `
+    <div class="wrapper left"><span class="message" data-id="${json.data.messages._id}">${json.data.messages.text}</span></div>
+  `;
+  }
+  input.value = "";
+  input.focus();
+  document.querySelector(".messages").innerHTML += messages;
+}
+
+//append a message to the dom
+let removeMessage = (data) => {
+  alert(data)
+  $('[data-id="'+ data +'"]').css('display', 'none');
+}
