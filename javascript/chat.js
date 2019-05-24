@@ -68,7 +68,7 @@ document.querySelector(".imdchat").addEventListener("click", e => {
             `;
         }else{
           var messages = `
-          <div class="wrapper left"><span class="message" data-id="${message._id}">${message.text}</span></div>
+          <div class="wrapper left" data-id="${message._id}"><span class="message" data-id="${message._id}">${message.text}</span></div>
         `;
         }
         document.querySelector(".messages").innerHTML += messages;    
@@ -95,11 +95,11 @@ document.querySelector(".imdchat").addEventListener("click", e => {
           json.data.messages.forEach(message => {
           if(message.sender === localStorage.getItem('id')){
             var messages = `
-              <div class="wrapper"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p data-mes="${message._id}" class="delete">X</p><p>E</p></div></div>
+              <div class="wrapper" data-id="${message._id}"><span class="message right" data-id="${message._id}">${message.text}</span><div class="edit"><p data-mes="${message._id}" class="delete">X</p><p>E</p></div></div>
             `;
           }else{
             var messages = `
-              <div class="wrapper left"><span class="message" data-id="${message._id}">${message.text}</span></div>
+              <div class="wrapper left" data-id="${message._id}"><span class="message" data-id="${message._id}">${message.text}</span></div>
             `;
           }
           document.querySelector(".messages").innerHTML += messages;    
@@ -185,11 +185,11 @@ input.addEventListener("keyup", e => {
 let appendMessage = (json) => {
   if(json.data.messages.sender === localStorage.getItem('id')){
     var messages = `
-      <div class="wrapper"><span class="message right" data-id="${json.data.messages._id}">${json.data.messages.text}</span><div class="edit"><p data-mes="${json.data.messages._id}" class="delete">X</p><p>E</p></div></div>
+      <div class="wrapper" data-id="${json.data.messages._id}"><span class="message right" data-id="${json.data.messages._id}">${json.data.messages.text}</span><div class="edit"><p data-mes="${json.data.messages._id}" class="delete">X</p><p>E</p></div></div>
     `;
   }else{
     var messages = `
-    <div class="wrapper left"><span class="message" data-id="${json.data.messages._id}">${json.data.messages.text}</span></div>
+    <div class="wrapper left" data-id="${json.data.messages._id}"><span class="message" data-id="${json.data.messages._id}">${json.data.messages.text}</span></div>
   `;
   }
   input.value = "";
